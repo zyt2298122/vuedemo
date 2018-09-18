@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>数组操作</title>
+    <script src="js/vue.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="vue_det">
+    <ul>
+        <template v-for="book in books">
+            <li v-for="(value,key,index) in book">
+                {{key}} {{value}}
+            </li>
+        </template>
+    </ul>
+    <button @click="addBook()">添加</button>
+    <button @click="filterBook()">筛选</button>
+    <button @click="editBook()">修改内容</button>
+    <button @click="spliceBook()">修改长度</button>
+    <div>排序</div>
+    <ul>
+        <template v-for="book in sortedBooks">
+            <li>书名 ： {{book.name}}</li>
+            <li>价格 ： {{book.price}}</li>
+        </template>
+    </ul>
+</div>
+
+<script>
+
+    var vm = new Vue({
+        el:"#vue_det",
+        data:{
+            books : [
+                {name:"书名1",price:21},
+                {name:"书名2",price:11},
+                {name:"书名3",price:13},
+            ],
+        },
+        methods : {
+            addBook : function () {
+                this.books.push({
+                    name:"书名4",
+                    price:14,
+                })
+            },
+            filterBook : function () {
+                this.books = this.books.filter(function (item) {
+                    return item.name.match(/书名1/);
+                });
+            },
+            editBook : function () {
+                Vue.set(this.books,0,{
+                    name : "书名13",
+                    price : 31
+                });
+            },
+            spliceBook : function () {
+                this.books.splice(1);
+            }
+
+        },
+        computed : {
+            sortedBooks : function () {
+                return this.books.sort(function (a,b) {
+                    return a.price < b.price;
+                });
+            }
+        }
+    });
+</script>
+</body>
+</html>
