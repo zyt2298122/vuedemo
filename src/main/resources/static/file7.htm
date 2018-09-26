@@ -7,7 +7,19 @@
 </head>
 <body>
 <div id="vue_det">
-
+    <p>lazy表示change时才发生改变</p>
+    <input type="text" v-model.lazy="message">
+    <p>{{message}}</p>
+    <div>
+        <p>number转换为Number类型</p>
+        <input type="number" v-model.number="message">
+        <p>{{typeof message}}</p><!-- typeof 表示当前message的数据类型 -->
+    </div>
+    <div>
+        <p>trim去除首尾空格</p>
+        <input type="text" v-model.trim="message">
+        <p>{{message}}</p>
+    </div>
 </div>
 
 <script>
@@ -15,6 +27,7 @@
     var vm = new Vue({
         el:"#vue_det",
         data:{
+            message:121212
         },
         methods : {
 
