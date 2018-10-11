@@ -9,8 +9,12 @@
 <body>
 <div id="vue_det">
     <div></div>
-    <button @click="ajax1()">请求后台</button>
+    <button @click="ajax1()">请求后台get</button>
     <input type="text" v-model="msg">
+    <div>
+        <button @click="ajax2(1,2)">请求后台 带参数</button>
+        <input type="text" v-model="msg1">
+    </div>
 </div>
 
 <script>
@@ -18,17 +22,25 @@
     var vm = new Vue({
         el:"#vue_det",
         data:{
-            msg : ''
+            msg : '',
+            msg1 : ''
         },
         methods:{
             ajax1 : function () {
                 console.log(11111);
                 //发送get请求
                 this.$http.get('/ajax1').then(function (res) {
-                    this.msg = res.data;
+                    this.msg = res.data.msg;
                 },function () {
                     alert("请求失败！");
                 });
+            },
+            ajax2 : function (a,b) {
+                this.$http.get('/ajax2',{a:a,b:b}).then(function (res) {
+                    this.msg1 = res.data.msg;
+                },function () {
+                    alert("请求失败！");
+                })
             }
         }
     });
